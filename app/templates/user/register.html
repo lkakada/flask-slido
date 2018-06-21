@@ -1,0 +1,33 @@
+{% extends 'main/index.html' %}
+{% from "includes/_formhelpers.html" import render_field %}
+{% block title %}Slido Account{% endblock %}
+
+{% block navbar %}
+	{% include 'navbar/login_navbar.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container" id="signup_page">
+    <div class="row justify-content-center">
+        <form class="main-form shadow p-3 mb-5 bg-white" method="POST" action="">
+			<h2 class="heading text-center">Create a new user</h2>
+			<p class="text-center">or <a href="{{ url_for('login') }}">log in to your account</a></p>
+			  	<hr>
+			  	<div class="row">
+			    <div class="col-lg-6">
+			      	{{ form.csrf_token }}
+			      	{{ render_field(form.first_name, label_visible=true, placeholder='First name', type='text') }}
+			    </div>
+			    <div class="col-lg-6">
+			      	{{ render_field(form.last_name, label_visible=true, placeholder='Last name', type='text') }}
+			    </div>
+			  	</div>
+			  	{{ render_field(form.username, label_visible=true, placeholder='Username', type='text') }}
+			  	{{ render_field(form.email, label_visible=true, placeholder='Email', type='email') }}
+			  	{{ render_field(form.password, label_visible=true, placeholder='Password', type='password') }}
+		  	<button type="submit" class="btn btn-success btn-block">Create user</button>
+		</form>
+    </div>
+    <p class="text-center" style="margin-top: -30px;">Want to join the event instead?<a href="{{ url_for('index')}}"> Join here</a></p>
+</div>
+{% endblock %}
