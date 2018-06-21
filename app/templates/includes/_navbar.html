@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    {% if session.logged_in %}
+    <a class="navbar-brand" style="color:white;">My events</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    {% else %}
+    <a class="navbar-brand" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/logo.png')}}"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    {% endif %}
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            {% if session.logged_in %}
+            <a class="nav-item nav-link active">
+                <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-user-circle fa-lg" style="color: white;"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" style="margin-right: 25px; margin-top: -5px; width: 300px;">
+                    <a class="dropdown-item" href="#" style="padding: 10px 15px; margin-top: -5px;"><i class="fa fa-user" style="color: #a59d9d; margin-right: 10px;"></i> {{username}}</a>
+                    <div class="dropdown-divider" style="margin-top: 0px;"></div>
+                    <a class="dropdown-item" href="{{url_for('dashboard')}}" style="padding: 10px 15px; margin-top: -5px;"><i class="fa fa-home" style="color: #a59d9d; margin-right: 10px;"></i>My events</a>
+                    <a class="dropdown-item" href="{{ url_for('create') }}" style="padding: 10px 15px; margin-top: -5px;"><i class="fa fa-plus" style="color: #a59d9d; margin-right: 10px;"></i>Create a event</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ url_for('logout') }}" style="padding: 10px 15px;"><i class="fa fa-sign-out" style="color: #a59d9d; margin-right: 10px;"></i> Logout</a>
+                </div>
+                </a>
+            {% else %}
+            <a class="nav-item nav-link {{ 'active' if active_page == 'sign_up' else '' }}" href="{{ url_for('register') }}">Sign up</a>
+            <a class="nav-item nav-link {{ 'active' if active_page == 'log_in' else '' }}" href="{{ url_for('login') }}">Log in</a>
+           {% endif %}
+        </div>
+    </div>
+</nav>
