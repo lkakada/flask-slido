@@ -10,7 +10,7 @@ app.config.from_object(Configuration)
 db = SQLAlchemy(app)
 
 from app.views import *
-# from app.login.view import *
+from app.login.view import *
 # from app.users.view import *
 # from app.events.view import *
 # from app.questions.view import *

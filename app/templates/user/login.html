@@ -1,0 +1,21 @@
+{% extends 'main/index.html' %}
+{% from "includes/_formhelpers.html" import render_field %}
+{% block title %}Slido account {% endblock %}
+{% block navbar %}
+    {% include 'navbar/login_navbar.html' %}
+{% endblock %}
+{% block content %}
+<div class="container" id="login_page">
+    <div class="row justify-content-center">
+        <form class="main-form shadow p-3 mb-5 bg-white" method="POST" action="">
+            <h2 class="heading text-center">Log in to your account</h2>
+            <p class="text-center">or <a href="#">create an account</a></p>
+                <hr>
+                {{ form.csrf_token }}
+                {{ render_field(form.username, label_visible=true, placeholder='Username', type='text') }}
+                {{ render_field(form.password, label_visible=true, placeholder='Password', type='password') }}
+            <button type="submit" class="btn btn-success btn-block" id="btn-login">Log in</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
