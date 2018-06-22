@@ -3,7 +3,6 @@ from .form import *
 from app.register.view import *
 from flask import render_template, request, flash, redirect, url_for, session
 
-
 @app.route('/accounts.sli.do/login', methods=['GET', 'POST'])
 def login():
     form = Login()
@@ -16,7 +15,7 @@ def login():
                 session['user_id'] = user.user_id
                 session['username'] = user.username
                 flash('You logged in successfully.', 'success')
-                return redirect(url_for('index'))
+                return redirect(url_for('event_dashboard'))
             else:
                 flash('Invalid password. Please try again!', 'danger')
         else: 
@@ -26,4 +25,5 @@ def login():
 @app.route('/logout')
 def logout():
     session['logged_in'] = False
+    flash('You logged out successfully.', 'success')
     return redirect(url_for('index'))

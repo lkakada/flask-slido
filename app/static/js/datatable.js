@@ -14,7 +14,7 @@ $(document).ready(function(){
 $(document).ready(function() {
   setTimeout(function() {
     $("#message").fadeOut('fast');
-  }, 3000);
+  }, 5000);
 });
 
 function call_modal() { 
