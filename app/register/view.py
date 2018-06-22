@@ -22,7 +22,6 @@ def register():
 			session['logged_in'] = True
 			session['username'] = user.username
 			session['user_id'] = user.user_id
-			print(session['user_id'])
 			flash('User registered successfully.', 'success')
 			return	redirect(url_for('event_dashboard'))
 	return render_template('user/register.html', form=form)

@@ -1,0 +1,26 @@
+{% extends 'main/index.html' %}
+{% from "includes/_formhelpers.html" import Field %}
+{% block title %}Event error {% endblock %}
+
+{% block navbar %}
+	{% include 'navbar/home-navbar.html' %}
+{% endblock %}
+{% block content %}
+	
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-sm col-md-8 col-lg-6">
+            <form method='POST'>
+                <div class="input-group d-flex justify-content-center" id="search_question_input">
+                	<p class="lead" style="color: red;">Sorry, there is no such event active right now</p>
+                    {{ form.csrf_token }}
+                    {{ Field(form.event_code, placeholder='# Event code here', type='text') }}
+                    <div class="input-group-append">
+                        <button class="btn btn-success shadow p-3 mb-5 bg-success" id="arrow-right" type="submit"><i class="fa fa-arrow-right fa-lg"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

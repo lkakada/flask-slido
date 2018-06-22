@@ -44,9 +44,34 @@ def event_dashboard():
 	return render_template('events/event_dashboard.html', form=form, searchform=searchform, username=username, active_event=active_event, past_event=past_event)
 
 
+@app.route('/app.sli.do/', methods=['GET', 'POST'])
+def event_list_after_search():
+    form = eventForm()
+    event_id = form.event_code.data
+    if request.method == 'POST' and form.validate():
+        get_event = Event.query.filter_by(event_id=event_id.lower()).all()
+        if get_event:
+            session['event_id'] = event_id
+            return redirect(url_for('event_list_after_search', search=event_id))
+        else:
+            session['event_id'] = event_id
+            return redirect(url_for('event_list_after_error', search=event_id))
+    events = Event.query.filter_by(event_id=session['event_id'].lower()).all()
+    return render_template('navbar/navbar_question_search.html', events=events, form=form)
 
-
-
+@app.route('/app.sli.do.disactive/', methods=['GET', 'POST'])
+def event_list_after_error():
+	form = eventForm()
+	event_id = form.event_code.data
+	if request.method == 'POST' and form.validate():
+		get_event = Event.query.filter_by(event_id=event_id.lower()).all()
+		if get_event:
+			session['event_id'] = event_id
+			return redirect(url_for('event_list_after_search', search=event_id))
+		else:
+			session['event_id'] = event_id
+			return redirect(url_for('event_list_after_error', search=event_id))
+	return render_template('events/error_event.html', form=form)
 
 
 

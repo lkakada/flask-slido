@@ -1,0 +1,37 @@
+{% extends 'main/index.html' %}
+{% block title %}Slido - Audience Interaction Made Easy{% endblock %}
+{% from "includes/_formhelpers.html" import Field %}
+{% block navbar %}
+    {% include 'navbar/event_navbar.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-sm col-md-8 col-lg-6">
+            <form method='POST'>
+                <div class="input-group d-flex justify-content-center" id="search_question_input">
+                    {{ form.csrf_token }}
+                    {{ Field(form.event_code, placeholder='# Event code here', type='text') }}
+                    <div class="input-group-append">
+                        <button class="btn btn-success shadow p-3 mb-5 bg-success" id="arrow-right" type="submit"><i class="fa fa-arrow-right fa-lg"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container" style="margin-top: 10px; width: 400px;" id="question_info">
+    <div class="list-group">
+    {% for event in events %}
+        <a href="/app.sli.do/event?event_id={{event.event_id}}&event_name={{event.event_name}}" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex justify-content-start">
+                <h6 class="mb-1" style="font-weight: bold; color: black;">{{event.event_name}}</h6>
+            </div>
+            <small class="d-flex align-items-center" style="margin-bottom: 5px; color: #a59d9d;">#{{event.event_id.upper()}}</small>
+            <small class="d-flex align-items-end" style="color: #a59d9d"><i class="fa fa-calendar-o" style="margin-bottom: 4px; margin-right: 5px;"></i>{{event.date_from}} - {{event.date_to}}</small>
+        </a>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

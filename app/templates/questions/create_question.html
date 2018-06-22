@@ -1,0 +1,61 @@
+{% extends 'main/index.html' %}
+{% from "includes/_formhelpers.html" import render_field %}
+{% block title %}
+	{% if event %}
+		{{ event }} | Question
+	{% else %}
+		Question
+	{% endif %}
+{% endblock %}
+{% block navbar %}
+    {% include 'navbar/question_navbar.html' %}
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-sm col-md-8 col-lg-6">
+        	<form method='POST'>
+            <div class="form-group">
+                <label class="text-secondary" for="question_label">Ask the speaker</label>
+                <textarea name="question" class="form-control shadow p-3 mb-5 bg-white" rows="4" placeholder="Type your question"></textarea>
+            </div>
+            <div class="input-group mb-3" id="yourname">
+                <input type="text" class="form-control shadow bg-white" placeholder="Your name (opational)" aria-label="Recipient's username" aria-describedby="basic-addon2" name="username">
+                <div class="input-group-append">
+                    <button class="btn btn-success shadow bg-success" type="submit">Send</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-center">
+    <span id="number_of_questions">
+        {% if number_of_question > 1 %}
+            {{number_of_question}} questions
+        {% elif number_of_question == 0 %}
+            <span style="margin-left: 100px;">Please enter question to the speaker.</span>
+        {% else %}
+            {{number_of_question}} question
+        {% endif %}
+    </span>
+</div>
+
+<div class="container" id="card">
+    <div class="row justify-content-md-center">
+        <div class="col-sm col-md-8 col-lg-6">  
+        {% for question in questions | sort(attribute='registered_on', reverse = True) %}  
+            <div class="card shadow bg-white">
+                <div class="card-body text-secondary">
+                    <i class="fa fa-user-circle fa-2x"></i>
+                    <p class="card-text1">{{question.username}}</p>
+                    <p class="card-text2">{{question.registered_on.strftime('%r')}}</p>
+                    <p class="card-text">{{question.question}}</p>  
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
