@@ -1,0 +1,242 @@
+/** Navbar for Event and Event List Tab **/
+#circle {
+  position: absolute;
+  margin-left: 10px;
+  display: flex;
+  color: grey;
+  align-items: center;
+}
+#search{
+  padding-left: 35px;
+  width: 450px;
+  margin-right: -150px;
+  border-color: #fff !important;
+  border-radius: 10px;
+}
+#navbar-event {
+	background-color: #f6f6f6 !important;
+
+}
+
+#events{
+	color: #9c9c9c;
+	font-size: 26px;
+	font-family: 'Gurajada', serif;
+	margin-left: 40px;
+}
+
+#list_event:hover {
+	background-color: #d0bbbb00 !important;
+}
+
+.nav-pills .nav-link {
+	border-radius: 0px !important;
+}
+
+#pills-active-tab {
+	margin-left: 25px;
+}
+
+#pills-active-tab, #pills-past-tab {
+	font-size: 22px;
+	font-family: 'Gurajada', serif;
+	color: grey;
+	padding: 0.5rem 0.7rem 0rem 0.7rem !important;
+}
+
+#event_list_tab .nav-item .nav-link:hover {
+	color: #237bbc;
+}
+#event_list_tab .nav-link.active  {
+	border-bottom: 4px solid #237bbc !important;
+	color: #237bbc !important;
+	background-color: #f5f5f5 !important;
+}
+
+/** Event Dashboard List **/
+.card {
+	border-radius: 0px !important;
+}
+.event-dashboard{
+	padding: 0px !important;
+	float: left;
+  	position: relative;
+}
+
+.event-dashboard:hover {
+	background-color: #fbf9fe;
+}
+
+.event-dashboard a span {
+	position:absolute; 
+  	width:100%;
+  	height:100%;
+  	top:0;
+  	left: 0;
+  	z-index: 3;
+}
+.event-dashboard a:hover {
+	background-color: #f5f5f5;
+}
+
+.event-dashboard .text-dark {
+	font-size: 16px;
+	margin-left: 20px;
+	margin-top: 20px; 
+	margin-bottom: 0px;
+}
+
+.event-dashboard .text-muted {
+	margin-left: 5px;
+	font-size: 12px;
+}
+#calendar {
+	margin-left: 20px;
+	font-size: 10px;
+}
+
+/** Event Modal **/
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#70be4e;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 1px 1px 1px #999;
+}
+
+.my-float{
+	margin-top:10px;
+}
+
+/** Admin Event Dashboard **/
+#admin_event_id {
+	margin-top: -10px;
+	cursor: pointer;
+}
+#admin_event_status {
+	margin-top: -30px;
+	font-size: 13px;
+	color: #dae3eb !important;
+}
+
+#back_button {
+	padding-left: 0px;
+	margin-left: 60px;
+}
+
+.fa-chevron-left {
+	background-color: #4288ba;
+	border: none;
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	color: #fff;
+	padding: 12px 0px 0px 12px;
+	margin: 10px -70px 0px 40px;
+	z-index: 1;
+}
+
+.fa-chevron-left:hover {
+	text-decoration: none;
+	color: #fff;
+}
+.fa-chevron-left:link {
+	text-decoration: none;
+}
+
+
+/** Admin Event Dashboard Tab **/
+#admin_event_dashboard_tab{
+	background-color: #fff;	
+	height: 50px;
+	padding-left: 50px;
+}
+
+#admin_event_dashboard_tab .nav-link {
+	border: none;
+	padding-top: 18px;
+	font-size: 14px;
+}
+
+#admin_event_dashboard_tab a {
+	color: grey;
+}
+
+#admin_event_dashboard_tab .nav-item .nav-link:hover {
+	color: #237bbc;
+}
+#admin_event_dashboard_tab .nav-link.active  {
+	border-bottom: 3px solid #237bbc !important;
+	color: #237bbc !important;
+	font-weight: bold;
+}
+
+
+/** Navbar Question **/
+#nav_question {
+	background-color: #227cbc;
+	height: 60px;
+}
+#nav_question .nav-item .btn-link {
+	color: #fff;
+	padding-top: 18px;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+#nav_question .nav-item .nav-link {
+	color: #fff;
+	padding-top: 18px;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+/** Delete Modal **/
+#confirm-delete {
+	margin-top: 130px;
+}
+#confirm-delete .modal-content {
+	width: 90%;
+}
+#no, #yes{
+	width: 60px;
+	border-radius: 3px;
+	cursor: pointer;
+	font-size: 12px;
+	padding: 5px 2px;
+}
+#no {
+	background-color: #e0e0e0;
+	color: #777;
+}
+#yes {
+	background-color: #3288e6;
+	color: #fff;
+	margin-left: 5px;
+}
+.modal-body > div {
+	display: inline;
+}
+
+@media (max-width: 575.98px) {
+	#nav_question {
+	    height: 80px;
+	}
+	.w-75 {
+			width: 100% !important;
+		}
+	#search {
+    width: 300px;
+    margin-top: 15px;
+	}
+	#events {
+		display: none;
+	}
+	#confirm-delete .modal-content {
+	width: 100%;
+	}
+}

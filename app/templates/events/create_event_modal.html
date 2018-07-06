@@ -1,26 +1,25 @@
-<button class="float" data-toggle="modal" data-target="#exampleModal">
+<button class="float" data-toggle="modal" data-target="#exampleModalCenter">
 	<i class="fa fa-plus my-float"></i>
 </button>
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   	<div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      	<div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">Create event</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          	<span aria-hidden="true">&times;</span>
-		        </button>
-	      	</div>
-		      	<div class="modal-body">
+	    <div class="modal-content event-body">
+		    <p class="modal-title text-center create-event-header">Create new event</p>
+		    <div class="modal-body">
 		        <form method="POST" action="">
-					{{ form.csrf_token }}
-					{{ render_field(form.date_from, label_visible=true, placeholder='DD.MM.YYYY', type='text',  id="date", autocomplete="off") }}
-					{{ render_field(form.date_to, label_visible=true, placeholder='DD.MM.YYYY', type='text', id="date", autocomplete="off") }}
-			      	{{ render_field(form.event_name, label_visible=true, placeholder='Event name', type='text', autocomplete="off") }}
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        	<button type="submit" class="btn btn-success">Create event</button>
-				</form>
-	      	</div>
+		        	{{ form.csrf_token }}
+		            <div class="form-group position-relative">
+		              	{{ input(form.date_from, label_visible=true, type='text',  id="datefrominput", autocomplete="off", class="date-to", class="date-from") }}
+		              	{{ input(form.date_to, label_visible=true, type='text',  id="datetoinput", autocomplete="off", class="position-absolute date-to") }}
+		              	{{ input(form.event_name, label_visible=true, type='text',  id="eventnameinput", autocomplete="off" , class="position-absolute event-name") }}
+		              	<div class="create-btn">
+		                	<button class="position-absolute text-center" data-dismiss="modal" id="btn-close">Close</button>
+		                	<button type="submit" class="position-absolute text-center" id="btn-create">Create</button>
+		             	</div>
+		            </div>
+		       	</form>
+		    </div>
 	    </div>
   	</div>
 </div>

@@ -1,5 +1,9 @@
 {% extends 'main/index.html' %}
 {% block title %}Slido - Audience Interaction Made Easy{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/login_register.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/question.css') }}">
+{% endblock %}
 {% from "includes/_formhelpers.html" import Field %}
 {% block navbar %}
     {% include 'navbar/event_navbar.html' %}

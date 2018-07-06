@@ -1,0 +1,113 @@
+/** user drop down menu **/
+
+#user-dropdown-menu{
+	width: 300px !important;
+}
+
+.dropdown-menu-right {
+	right: 255px;
+}
+#user-dropdown-menu > .dropdown-item:first-child {
+	margin-top: -8px;
+	height: 70px;
+	padding-top: 18px;
+}
+#user-dropdown-menu > .dropdown-item:first-child:hover {
+	background-color: rgba(0,0,0,.05);
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+}
+
+#user-dropdown-menu > .dropdown-item:hover {
+	background-color: rgba(0,0,0,.05);
+}
+#profile-username {
+	top: 16px;
+	left: 54px;
+	font-size: 13px;
+}
+#profile-email {
+	top: 36px;
+	left: 54px;
+	font-size: 12px;
+	color: rgba(0,0,0,.4);
+}
+#edit {
+	top: 22px;
+	right: 18px;
+	color: #007bff;
+	font-size: 12px;
+}
+.profile-header {
+	font-size: 12px;
+	color: rgba(0,0,0,.4);
+}
+
+.fa-user {
+	font-size: 20px;
+	color: #2182c4;
+	margin-right: 13px;
+	margin-top: 10px;
+}
+.fa-home {
+	color: #2182c4;
+	font-size: 17px;
+}
+
+.item > .fa-plus {
+	color: #70be4e;
+	font-size: 15px;
+}
+
+.fa-building {
+	color: #00a388;
+	font-size: 15px;
+}
+
+.fa-line-chart {
+	color: #e64731;
+	font-size: 15px;
+}
+
+.fa-users {
+	color: #ffb03b;
+	font-size: 15px;
+}
+
+.fa-arrow-circle-o-up {
+	color: #70be4e;
+	font-size: 17px;
+}
+.fa-question-circle-o, .fa-exclamation-circle, .fa-sign-out {
+	font-size: 15px;
+}
+.dropdown-item {
+	font-weight: lighter;
+	font-size: 14px;
+}
+.item {
+	padding-top:10px;
+	padding-bottom: 10px;
+}
+.divider {
+	margin-top: 0px;
+}
+
+/** Event drop down menu **/
+#event-dropdown-menu {
+	width: 150px;
+	margin-right: 30px;
+	margin-top: -5px;
+}
+
+#event-dropdown-menu .dropdown-item {
+	font-size: 12px;
+	color: #2b2d2f;
+	cursor: pointer;
+	padding-left: 15px;
+}
+
+#event-dropdown-menu .dropdown-item:hover {
+	background-color: #4285f4;
+	color: #fff;
+}

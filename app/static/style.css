@@ -15,7 +15,7 @@ label {
 }
 
 
-/** Navbar Question Search **/
+/** Navbar Question **/
 #question_search {
 	height: 50px;
 }
@@ -367,6 +367,40 @@ hr {
 .my-float{
 	margin-top:10px;
 }
+
+
+/** Admin Question Panel **/
+
+#admin_question_panel {
+	margin-top: 10px;
+}
+
+#moderate list-group {
+	background-color: none;
+}
+.list-group-item.disabled, .list-group-item:disabled {
+	background-color: #dcdcdc !important;
+	border: none;
+}
+
+#admin_question_dashboard_tab {
+	border-bottom: none;
+}
+#admin_question_dashboard_tab .nav-item .nav-link {
+	color: #237bbc;
+}
+#admin_question_dashboard_tab .nav-item .nav-link:hover {
+	color: #237bbc;
+	background-color: none;
+}
+
+#admin_question_dashboard_tab .nav-link.active  {
+	border-bottom: 3px solid #237bbc !important;
+	color: #237bbc !important;
+	font-weight: bold;
+	background-color: #ebebeb; 
+}
+
 /** log in page *
 /*#login-page {
 	margin-top: 50px;

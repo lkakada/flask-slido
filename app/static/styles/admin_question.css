@@ -1,0 +1,137 @@
+#moderate {
+	margin-top: 10px;
+}
+
+#moderate_question {
+	background-color: #faf9f9 !important;
+	height: 480px;
+}
+
+#admin_question {
+	margin-top: 10px !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+	color: #237bbc !important;
+	border-bottom: 3px solid #237bbc !important;
+	background-color: transparent !important;
+	font-weight: bold;
+}
+.nav-pills .nav-link:hover {
+	color: #237bbc !important;
+}
+
+.nav-pills .nav-link {
+	border-radius: 0px !important;
+	color: rgb(104, 103, 109) !important;	
+	font-size: 14px;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-weight: bold;
+	font-family: 'Roboto', sans-serif;
+}
+
+#live, #starred, #achieved {
+overflow-y: scroll;
+height: 480px;
+background-color: #fff;
+width: 100%;
+}
+
+/** admin question card in admin dashboard **/
+.table-hover>tbody>tr .icon {
+  visibility: hidden
+}
+
+.table-hover>tbody>tr:hover .icon {
+  visibility: visible
+}
+
+.fa-user-circle {
+  color: #bbb;
+}
+.anonymous {
+  top: 8px;
+  left: 55px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.fa-star-o, .fa-star {
+  top: 13px;
+  right: 130px;
+  color: #bbb;
+}
+
+.fa-angle-double-up, .fa-angle-down {
+  top: 13px;
+  right: 100px;
+  color: #4285f4 !important;
+}
+
+.fa-check-circle-o, .fa-undo {
+  top: 13px;
+  right: 70px;
+  color: #bbb;
+}
+
+#navbarDropdownMenuLink {
+  top: 5px;
+  right: 20px;
+  padding-top: 4px;
+}
+
+.question-calandar {
+  top: 28px;
+  left: 55px;
+  font-weight: lighter;
+}
+.text-question {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  margin-right: 30px;
+  font-weight: lighter;
+}
+
+.table-hover>tbody>tr{
+  border-bottom: 1px solid #dee2e6;
+}
+
+#question-dropdown-menu .dropdown-item:hover {
+	background-color: #4285f4;
+	color: #fff;
+}
+
+#question-dropdown-menu .dropdown-item {
+  font-size: 12px;
+}
+
+.icon {
+  text-decoration: none !important;
+}
+
+.icon:hover {
+  color: #666;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

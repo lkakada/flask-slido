@@ -1,80 +1,99 @@
 {% extends 'main/index.html' %}
 {% from "includes/_formhelpers.html" import Field %}
-{% from "includes/_formhelpers.html" import render_field %}
+{% from "includes/_formhelpers.html" import input %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/event.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/sidemenu.css') }}">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+{% endblock %}
 {% block title %}My Events{% endblock %}
 {% block navbar %}
 {% include 'navbar/event_dashboard_navbar.html' %}
 {% endblock %}
 {% block content %}
 
-<div class="container">
-	<ul class="nav nav-tabs" id="event_list_tab" role="tablist" style="margin-top: 30px;">
-	  	<li class="nav-item">
-	    	<a class="nav-link active" id="acitve-tab" data-toggle="tab" href="#acitve" role="tab" aria-controls="acitve" aria-selected="true">ACTIVE</a>
-	  	</li>
-	  	<li class="nav-item">
-	    	<a class="nav-link" id="profile-tab" data-toggle="tab" href="#past" role="tab" aria-controls="past" aria-selected="false">PAST</a>
-	  	</li>
-	</ul>
-	<div class="tab-content" id="myTabContent">
-	  	<div class="tab-pane fade show active" id="acitve" role="tabpanel" aria-labelledby="acitve-tab">
-			{% for event in active_event|sort(attribute='registered_on', reverse = True) %}
-			<div class="list-group shadow bg-white" style="margin-bottom: 5px;" id="list_event">
-				<a href="/admin.sli.do/event/{{event.event_id}}/dashboard" class="d-flex justify-content-between">
-					<a href="/admin.sli.do/event/{{event.event_id}}/dashboard" style="padding: 15px 20px; text-decoration: none;">
-				      	<h6 class="mb-1 text-dark" style="font-weight: bold;">
-				      		{{event.event_name}}
-				      		<small class="text-muted" style="margin-left: 10px;">#{{event.event_id.upper()}}</small>
-				      	</h6>
-				      	<small class="d-flex align-items-end text-muted" style="margin-top: 10px;">
-				      		<i class="fa fa-calendar-o" style="margin-bottom: 4px; margin-right: 5px;"></i>{{event.date_from}} - {{event.date_to}}
+<div class="d-flex justify-content-center">
+	<div class="w-75 p-2">
+		<ul class="nav nav-pills" role="tablist" id="event_list_tab">
+		  	<li class="nav-item">
+		    	<a class="nav-link active" id="pills-active-tab" data-toggle="pill" href="#acitve" role="tab" aria-controls="pills-active" aria-selected="true">ACTIVE</a>
+		  	</li>
+		  	<li class="nav-item">
+		    	<a class="nav-link" id="pills-past-tab" data-toggle="pill" href="#past" role="tab" aria-controls="pills-past" aria-selected="false">PAST</a>
+		  	</li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="acitve" role="tabpanel" aria-labelledby="acitve-tab">
+				{% for event in active_event|sort(attribute='registered_on', reverse = True) %}
+				<div class="d-flex card" style="margin-bottom: 0px;">
+					<div class="w-100 p-2 card-body event-dashboard">
+						<h6 class="text-dark">{{event.event_name}}<small class="text-muted"> #{{event.event_id.upper()}}</small></h6>
+					
+						<small class="text-muted" id="calendar">
+				      		<i class="fa fa-calendar-o" style="margin-bottom: 15px; margin-right: 5px;"></i>{{event.date_from}} - {{event.date_to}}
 				      	</small>
-				    </a>
-				</a>
-				<div class="d-flex justify-content-end">
-					<button class="btn btn-link text-muted" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100px; margin-top: -70px;">
-				    	<i class="fa fa-ellipsis-v"></i>
-				    </button>
-				    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" style="margin-right: 40px; margin-top: -20px; width: 200px;">
-				        <a class="dropdown-item" href="/admin.sli.do/event/{{event.event_id}}/dashboard"></i>Dashboard</a>
-				        <button class="dropdown-item"></i>Upgrade</button>
-				        <a class="dropdown-item" href="" data-toggle="modal" data-target="#myModal">Duplicate</a>
-				        <a class="dropdown-item" data-href="/event/delete/{{event.event_id}}" data-toggle="modal" data-target="#confirm-delete"></i>Delete</a>
-				    </div>
+					    <a href="/admin.sli.do/event/{{event.event_id}}/dashboard" style="text-decoration: none;" id="event_tag"><span></span></a>
+					    <div class="d-flex align-items-end flex-column bd-highlight" style="margin-bottom: 5px;">
+						  	<button class="bd-highlight btn btn-link text-muted" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: -45px; width: 100px; z-index: 3;">
+							    <i class="fa fa-ellipsis-v"></i>
+							</button>
+							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" id="event-dropdown-menu">
+						        <a class="dropdown-item" href="/admin.sli.do/event/{{event.event_id}}/dashboard">Home</a>
+						        <button class="dropdown-item">Upgrade</button>
+						        <a class="dropdown-item" href="" data-toggle="modal" data-target="#myModal">Duplicate</a>
+						        <a class="dropdown-item" data-href="/event/delete/{{event.event_id}}" data-toggle="modal" data-target="#confirm-delete">Delete</a>
+						    </div>
+						</div>
+					</div>
 				</div>
-			</div>
-			{% endfor %}
-	  	</div>
-	  	<div class="tab-pane fade" id="past" role="tabpanel" aria-labelledby="past-tab">
-	  		{% for event in past_event|sort(attribute='registered_on', reverse = True) %}
-				<div class="list-group shadow bg-white" style="margin-bottom: 5px;" id="list_event">
-				<a href="/admin.sli.do/event/{{event.event_id}}/dashboard" class="d-flex justify-content-between">
-					<a href="/admin.sli.do/event/{{event.event_id}}/dashboard" style="padding: 15px 20px; text-decoration: none;">
-				      	<h6 class="mb-1 text-dark" style="font-weight: bold;">
-				      		{{event.event_name}}
-				      		<small class="text-muted" style="margin-left: 10px;">#{{event.event_id.upper()}}</small>
-				      	</h6>
-				      	<small class="d-flex align-items-end text-muted" style="margin-top: 10px;">
-				      		<i class="fa fa-calendar-o" style="margin-bottom: 4px; margin-right: 5px;"></i>{{event.date_from}} - {{event.date_to}}
+				{% endfor %}
+		  	</div>
+		  	<div class="tab-pane fade" id="past" role="tabpanel" aria-labelledby="past-tab">
+		  		{% for event in past_event|sort(attribute='registered_on', reverse = True) %}
+				<div class="d-flex card">
+					<div class="w-100 p-2 card-body event-dashboard">
+						<h6 class="text-dark">{{event.event_name}}<small class="text-muted"> #{{event.event_id.upper()}}</small></h6>
+						<small class="text-muted" id="calendar">
+				      		<i class="fa fa-calendar-o" style="margin-bottom: 15px; margin-right: 5px;"></i>{{event.date_from}} - {{event.date_to}}
 				      	</small>
-				    </a>
-				</a>
-				<div class="d-flex justify-content-end">
-					<button class="btn btn-link text-muted" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100px; margin-top: -70px;">
-				    	<i class="fa fa-ellipsis-v"></i>
-				    </button>
-				    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" style="margin-right: 40px; margin-top: -20px; width: 200px;">
-				        <a class="dropdown-item" href="/admin.sli.do/event/{{event.event_id}}/dashboard"></i>Dashboard</a>
-				        <button class="dropdown-item"></i>Upgrade</button>
-				        <a class="dropdown-item" href="" data-toggle="modal" data-target="#exampleModal">Duplicate</a>
-				        <a class="dropdown-item" data-href="/event/delete/{{event.event_id}}" data-toggle="modal" data-target="#confirm-delete"></i>Delete</a>
-				    </div>
+					    <a href="/admin.sli.do/event/{{event.event_id}}/dashboard" style="text-decoration: none;" id="event_tag"><span></span></a>
+					    <div class="d-flex align-items-end flex-column bd-highlight" style="margin-bottom: 5px;">
+						  	<button class="bd-highlight btn btn-link text-muted" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: -45px; width: 100px; z-index: 3;">
+							    <i class="fa fa-ellipsis-v"></i>
+							</button>
+							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" id="event-dropdown-menu">
+						        <a class="dropdown-item" href="/admin.sli.do/event/{{event.event_id}}/dashboard">Dashboard</a>
+						        <button class="dropdown-item">Upgrade</button>
+						        <a class="dropdown-item" href="" data-toggle="modal" data-target="#myModal">Duplicate</a>
+						        <a class="dropdown-item" data-href="/event/delete/{{event.event_id}}" data-toggle="modal" data-target="#confirm-delete">Delete</a>
+						    </div>
+						</div>
+					</div>
 				</div>
-			</div>
-			{% endfor %}
-	  	</div>
+				{% endfor %}
+		  	</div>
+		</div>
 	</div>
 </div>
-	
 {% include 'events/create_event_modal.html' %}
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="text-muted" style="font-size:14px;">Do you really want to delete this event? All the event data will be lost. You can’t undo this action.</p>
+                <div class="text-center float-right" id="yes"><a class="btn-ok" style="text-decoration:none;color: #fff;">YES</a></div>
+                <div class="text-center float-right" id="no" data-dismiss="modal"><span href="">NO</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+	$('#confirm-delete').on('show.bs.modal', function(e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        console.log('yes')
+        });
+</script>
+	
 {% endblock %}

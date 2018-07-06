@@ -1,0 +1,123 @@
+{% extends 'main/index.html' %}
+{% from "includes/_formhelpers.html" import input %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/event.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/admin_home.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/admin_question.css') }}">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+{% endblock %}
+{% block title %}{{get_event_name}}{% endblock %}
+{% block navbar %}
+<div class="nav row" id="nav_question">
+    <a class="fa fa-chevron-left" href="{{ url_for('event_dashboard') }}"></a>
+    <li class="col nav-item" id="back_button">
+        <a class="nav-link" id="admin_event_id">{{get_event_name}} <i class="fa fa-cog text-light" style="margin-left: 5px;"></i></a>
+        <span class="nav-link" id="admin_event_status">{{get_date_to.strftime('%d')}} - {{get_date_from.strftime('%d %b %Y')}}</span>
+    </li>
+    <li class="col nav-item text-center">
+        <span class="nav-link" id="admin_event_id">#{{get_event_id.upper()}} <i class="fa fa-cog text-light" style="margin-left: 5px;"></i></span>
+        <span class="nav-link" id="admin_event_status">{{get_event_status}}</span>
+    </li>
+    <li class="col nav-item text-right" style="margin-right: 10px;" id="admin-dropdown-sidemenu">
+        <button type="button" class="btn btn-link" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-lg"></i></button>
+        {% include 'includes/_sidemenu.html' %}
+    </li>
+</div>
+{% endblock %}
+{% block content %}
+<ul class="nav nav-tabs shadow bg-white" role="tablist" id="admin_event_dashboard_tab">
+  	<li class="nav-item">
+    	<a class="nav-link active" href="#home" role="tab" data-toggle="tab">Home</a>
+  	</li>
+  	<li class="nav-item">
+    	<a class="nav-link" href="#questions" role="tab" data-toggle="tab">Questions</a>
+  	</li>
+  	<li class="nav-item">
+    	<a class="nav-link" href="#polls" role="tab" data-toggle="tab">Polls</a>
+  	</li>
+  	<li class="nav-item">
+    	<a class="nav-link" href="#analyst" role="tab" data-toggle="tab">Analyst</a>
+  	</li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  	<div role="tabpanel" class="tab-pane fade" id="home">{% include 'events/admin_home/home.html' %}</div>
+  	<div role="tabpanel" class="tab-pane fade active show" id="questions">{% include 'questions/question_list.html' %}</div>
+  	<div role="tabpanel" class="tab-pane fade" id="polls">ccc</div>
+  	<div role="tabpanel" class="tab-pane fade" id="analyst">ccc</div>
+</div>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content event-body">
+        <p class="modal-title text-center create-event-header">Update</p>
+        <div class="modal-body">
+            <form method="POST" action="{{ url_for('event_update', event_id=session['event_id']) }}">
+              {{ form.csrf_token }}
+                <div class="form-group position-relative">
+                    {{ input(form.date_from, label_visible=true, type='text',  id="datefrominput", autocomplete="off", class="date-to", class="date-from") }}
+                    {{ input(form.date_to, label_visible=true, type='text',  id="datetoinput", autocomplete="off", class="position-absolute date-to") }}
+                    {{ input(form.event_name, label_visible=true, type='text',  id="eventnameinput", autocomplete="off" , class="position-absolute event-name") }}
+                    <div class="create-btn">
+                      <button class="position-absolute text-center" data-dismiss="modal" id="btn-close">Close</button>
+                      <button type="submit" class="position-absolute text-center" id="btn-create">Update</button>
+                  </div>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+    <div class="modal fade" id="question-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-body">
+                  <p class="text-muted" style="font-size:14px;">Are you sure you want to delete this question? You can't undo this action.</p>
+                  <div class="text-center float-right" id="yes"><a class="btn-ok" style="text-decoration:none;color: #fff;">YES</a></div>
+                  <div class="text-center float-right" id="no" data-dismiss="modal"><span href="">NO</span></div>
+              </div>
+          </div>
+      </div>
+  </div>
+<script type="text/javascript">
+$(document).ready(function() {
+  $(document).on('click', '#admin_event_id', function() {
+    $.ajax({
+      url: "http://localhost:4000/admin.sli.do/events",
+      method: "GET",
+      dataType: "json",
+      success:function(data) {
+        for (var i = 0; i < data.length; i++) {
+          $('#eventnameinput').val(data[i].event_name)
+          $('#datefrominput').val(data[i].date_from)
+          $('#datetoinput').val(data[i].date_to)
+          $("#exampleModalCenter").modal('show')
+        }
+      }
+    });
+  });
+});
+  
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+$('#question-delete').on('show.bs.modal', function(e) {
+  $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+  });
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

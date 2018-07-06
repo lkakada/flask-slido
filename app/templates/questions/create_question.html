@@ -1,5 +1,8 @@
 {% extends 'main/index.html' %}
 {% from "includes/_formhelpers.html" import render_field %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/question.css') }}">
+{% endblock %}
 {% block title %}
 	{% if event %}
 		{{ event }} | Question

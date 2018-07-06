@@ -21,5 +21,18 @@
     </div>
 {% endmacro %}
 
+{% macro input(field, class='') %}
+    <div class="{{ class }}">
+        {{ field.label(class="label position-absolute")}}
+        {{ field(class_='form-control', **kwargs) }}
+        {% if field.errors %}
+            {% for e in field.errors %}
+                <span class="help-inline">{{ e }}</span>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endmacro %}
+
+
 
 

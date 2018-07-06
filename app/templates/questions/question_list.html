@@ -1,0 +1,160 @@
+<div class="container" id="admin_question_panel">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6" id="moderate">
+            <div class="d-flex">
+                <div class="mr-auto p-2 text-black-50">Incoming</div>
+                <div class="p-2 text-black-50">Moderate</div>
+            </div>
+            <div class="w-auto" id="moderate_question"></div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6">
+            <ul class="nav nav-pills" role="tablist" id="admin_question">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-live-tab" data-toggle="pill" href="#live" role="tab" aria-controls="pills-home" aria-selected="true">Live</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-starred-tab" data-toggle="pill" href="#starred" role="tab" aria-controls="pills-profile" aria-selected="false">Starred</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-achieved-tab" data-toggle="pill" href="#achieved" role="tab" aria-controls="pills-contact" aria-selected="false">Achieved</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active show" id="live">
+                    <table class="table table-hover">
+                        <tbody>
+                            {% for question in questions | sort(attribute='registered_on', reverse = True) %}
+                                {% if question.completed == False %}
+                                    <tr>
+                                        <td class="position-relative">
+                                            <h6 class="text-dark"><i class="fa fa-user-circle fa-2x"></i><small class="position-absolute anonymous"> {{question.username}}</small>
+                                                      </h6>
+                                            <small class="position-absolute text-muted question-calandar">0 <i class="fa fa-thumbs-o-up"></i>&nbsp;&nbsp; {{question.registered_on.strftime('%d %b, %H:%M %p')}}
+                                                        </small>
+                                            <p class="card-text text-muted text-question" data-auction="{{question.id}}" id="{{question.id}}" style="border: none; resize: none;">{{question.question}}</p>
+                                            <button class="bd-highlight btn btn-link text-muted position-absolute" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-ellipsis-v"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" id="question-dropdown-menu">
+                                                <a class="dropdown-item" href="" data-toggle="modal" data-target="#questionModal"><i class="fa fa-reply"></i>&nbsp;&nbsp; Apply as admin</a>
+                                                <a class="dropdown-item" id="question-modal"><i class="fa fa-pencil-square-o" id="{{question.id}}"></i>&nbsp;&nbsp; Edit</a>
+                                                <a class="dropdown-item" data-href="/app.sli.do/question/{{question.id}}"  data-toggle="modal" data-target="#question-delete"><i class="fa fa-trash-o"></i>&nbsp;&nbsp; Delete</a>
+                                            </div>
+                                            {% if question.starred == True %}
+                                                <a class="icon fa fa-star fa-lg position-absolute" data-toggle="tooltip" data-placement="bottom" title="Starred" id="{{question.id}}" href="{{url_for('getUnStarredQuestion', id=question.id)}}" style="color: #FFA500"></a>
+                                            {% elif question.starred == False %}
+                                                <a class="icon fa fa-star-o fa-lg position-absolute" data-toggle="tooltip" data-placement="bottom" title="Not starred" id="{{question.id}}" href="{{url_for('getStarredQuestion', id=question.id)}}"></a>
+                                            {% endif %}
+                                
+                                            <a class="icon fa fa-angle-double-up fa-lg position-absolute"  data-toggle="tooltip" data-placement="bottom" title="Highlight question" href="{{url_for('getIsHighlightedQuestion', id=question.id)}}"></a>
+                                            <a class="icon fa fa-check-circle-o fa-lg position-absolute"  data-toggle="tooltip" data-placement="bottom" title="Achieve question" href="{{url_for('getCompletedQuestion', id=question.id)}}"></a>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="starred">
+                    <table class="table table-hover">
+                        <tbody>
+                            {% for question in questions | sort(attribute='registered_on', reverse = True) %}
+                                {% if question.starred == True %}
+                                    <tr>
+                                        <td class="position-relative">
+                                            <h6 class="text-dark"><i class="fa fa-user-circle fa-2x"></i><small class="position-absolute anonymous"> {{question.username}}</small>
+                                                      </h6>
+                                            <small class="position-absolute text-muted question-calandar">0 <i class="fa fa-thumbs-o-up"></i>&nbsp;&nbsp; {{question.registered_on.strftime('%d %b, %H:%M %p')}}
+                                                        </small>
+                                            <p class="card-text text-muted text-question" data-auction="{{question.id}}" id="{{question.id}}" style="border: none; resize: none;">{{question.question}}</p>
+                                            <button class="bd-highlight btn btn-link text-muted position-absolute" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-ellipsis-v"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" id="question-dropdown-menu">
+                                                <a class="dropdown-item" href="" data-toggle="modal" data-target="#questionModal"><i class="fa fa-reply"></i>&nbsp;&nbsp; Apply as admin</a>
+                                                <a class="dropdown-item" id="question-modal"><i class="fa fa-pencil-square-o" id="{{question.id}}"></i>&nbsp;&nbsp; Edit</a>
+                                                <a class="dropdown-item" data-href="/app.sli.do/question/{{question.id}}"  data-toggle="modal" data-target="#question-delete"><i class="fa fa-trash-o"></i>&nbsp;&nbsp; Delete</a>
+                                            </div>
+                                            {% if question.starred == True %}
+                                                <a class="icon fa fa-star fa-lg position-absolute" data-toggle="tooltip" data-placement="bottom" title="Starred" id="{{question.id}}" href="{{url_for('getUnStarredQuestion', id=question.id)}}" style="color: #FFA500"></a>
+                                            {% endif %}
+                                            <a class="icon fa fa-angle-double-up fa-lg position-absolute"  data-toggle="tooltip" data-placement="bottom" title="Highlight question"></a>
+                                            <a class="icon fa fa-check-circle-o fa-lg position-absolute"  data-toggle="tooltip" data-placement="bottom" title="Achieve question" href="{{url_for('getCompletedQuestion', id=question.id)}}"></a>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                            {% else %}
+                            <h1>Nothing to show!</h1>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="achieved">
+                    <table class="table table-hover">
+                        <tbody>
+                            {% for question in questions | sort(attribute='registered_on', reverse = True) %}
+                                {% if question.completed == True %}
+                                    <tr>
+                                        <td class="position-relative">
+                                            <h6 class="text-dark"><i class="fa fa-user-circle fa-2x"></i><small class="position-absolute anonymous"> {{question.username}}</small>
+                                                      </h6>
+                                            <small class="position-absolute text-muted question-calandar">0 <i class="fa fa-thumbs-o-up"></i>&nbsp;&nbsp; {{question.registered_on.strftime('%d %b, %H:%M %p')}}
+                                                        </small>
+                                            <p class="card-text text-muted text-question" data-auction="{{question.id}}" id="{{question.id}}" style="border: none; resize: none;">{{question.question}}</p>
+                                            <button class="bd-highlight btn btn-link text-muted position-absolute" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-ellipsis-v"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" id="question-dropdown-menu">
+                                                <a class="dropdown-item" href="" data-toggle="modal" data-target="#questionModal"><i class="fa fa-reply"></i>&nbsp;&nbsp; Apply as admin</a>
+                                                <a class="dropdown-item" id="question-modal"><i class="fa fa-pencil-square-o" id="{{question.id}}"></i>&nbsp;&nbsp; Edit</a>
+                                                <a class="dropdown-item" data-href="/app.sli.do/question/{{question.id}}"  data-toggle="modal" data-target="#question-delete"><i class="fa fa-trash-o"></i>&nbsp;&nbsp; Delete</a>
+                                            </div>
+                                            {% if question.completed == True %}
+                                                <a class="icon fa fa-undo fa-lg position-absolute"  data-toggle="tooltip" data-placement="bottom" title="Restore question" href="{{url_for('getIncompletedQuestion', id=question.id)}}"></a>
+                                            {% endif %}
+                                            {% if question.starred == True %}
+                                                <a class="icon fa fa-star fa-lg position-absolute" data-toggle="tooltip" data-placement="bottom" title="Starred" id="{{question.id}}" href="{{url_for('getUnStarredQuestion', id=question.id)}}" style="color: #FFA500; right: 100px;"></a>
+                                            {% elif question.starred == False %}
+                                                <a class="icon fa fa-star-o fa-lg position-absolute" data-toggle="tooltip" data-placement="bottom" title="Not starred" id="{{question.id}}" href="{{url_for('getStarredQuestion', id=question.id)}}" style="right: 100px;"></a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        {% endfor %}
+                    </table>
+                </div>     
+            </div>
+        </div>      
+    </div>
+    {% include 'events/admin_question/question-modal.html' %}
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $(document).on('click', '#question-modal', function() {
+            var id = $(this).find('i').attr('id');
+            $.ajax({
+                url: "http://localhost:4000/admin.sli.do/question/"+id,
+                data: {id: id},
+                method: "GET",
+                dataType: "json",
+                success:function(data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $('#question-editing').val(data[i].question)
+                        $('#questionModal').modal('show')
+                    }
+                }
+            });
+        });
+    });
+    </script>
+</div>
+
+
+
+
+
+
+
+
+
+

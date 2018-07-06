@@ -1,0 +1,19 @@
+<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  	<div class="modal-dialog" role="document">
+	    <div class="modal-content event-body">
+		    <p class="modal-title text-center create-event-header">Editing question</p>
+		    <div class="modal-body">
+		        <form method="POST" action="{{ url_for('question_update', event_id=session['event_id']) }}">
+		        	{{ form.csrf_token }}
+		            <div class="form-group position-relative">
+		              	{{ input(questionform.question, label_visible=true, type='text',  id="question-editing", autocomplete="off", class="date-to") }}
+		              	<div class="create-btn">
+		                	<button class="position-absolute text-center" data-dismiss="modal" id="btn-close">Close</button>
+		                	<button type="submit" class="position-absolute text-center" id="btn-create">Update</button>
+		             	</div>
+		            </div>
+		       	</form>
+		    </div>
+	    </div>
+  	</div>
+</div>

@@ -17,10 +17,9 @@ $(document).ready(function() {
   }, 5000);
 });
 
-function call_modal() { 
-  $("#exampleModal").modal();
-  // window.location.href = "/admin.sli.do/event/1ebf36/dashboard";
-}
+// function call_modal() { 
+//   $("#exampleModal").modal();
+// }
 
 // function getQuestions() {
 //           $.getJSON('/admin.sli.do/events/questions', {

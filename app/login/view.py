@@ -14,6 +14,9 @@ def login():
                 session['logged_in'] = True
                 session['user_id'] = user.user_id
                 session['username'] = user.username
+                session['email'] = user.email
+                session['first_name'] = user.first_name
+                session['last_name'] = user.last_name
                 flash('You logged in successfully.', 'success')
                 return redirect(url_for('event_dashboard'))
             else:

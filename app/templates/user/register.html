@@ -1,7 +1,9 @@
 {% extends 'main/index.html' %}
 {% from "includes/_formhelpers.html" import render_field %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/login_register.css') }}">
+{% endblock %}
 {% block title %}Slido Account{% endblock %}
-
 {% block navbar %}
 	{% include 'navbar/login_navbar.html' %}
 {% endblock %}
@@ -9,7 +11,7 @@
 {% block content %}
 <div class="container" id="signup_page">
     <div class="row justify-content-center">
-        <form class="main-form shadow p-3 mb-5 bg-white" method="POST" action="">
+        <form class="main-form shadow p-3 mb-5 bg-white" method="POST" action="" id="register">
 			<h2 class="heading text-center">Create a new user</h2>
 			<p class="text-center">or <a href="{{ url_for('login') }}">log in to your account</a></p>
 			  	<hr>

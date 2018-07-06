@@ -1,7 +1,9 @@
 {% extends 'main/index.html' %}
 {% from "includes/_formhelpers.html" import Field %}
 {% block title %}Event error {% endblock %}
-
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css') }}">
+{% endblock %}
 {% block navbar %}
 	{% include 'navbar/home-navbar.html' %}
 {% endblock %}

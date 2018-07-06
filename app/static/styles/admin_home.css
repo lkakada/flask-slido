@@ -1,0 +1,166 @@
+/** Admin Home **/
+#admin_home {
+	width: 90%;
+}
+
+#admin_home > p {
+	font-size: 22px;
+	margin-top: 30px;
+	color: #949494;
+}
+
+.card-body > .fa {
+	margin-bottom: 20px; 
+	color: #dad8d87d;
+	margin-top: 20px;
+}
+
+.card-body > p {
+	font-size: 16px;
+	color: #949494;
+}
+
+#go_to_questions, #create_poll, #browse_use_cases {
+
+	margin: 40px 0px;
+}
+#go_to_questions > a {
+	text-decoration: none;
+	color: #2182c4;
+	border: 1px solid #2182c4;
+	padding: 10px 25px;
+	border-radius: 20px;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+#create_poll > a {
+	text-decoration: none;
+	color: #70be4e;
+	border: 1px solid #70be4e;
+	padding: 10px 25px;
+	border-radius: 20px;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+#browse_use_cases > a {
+	text-decoration: none;
+	color: #000;
+	border: 1px solid #ccc;
+	padding: 10px 25px;
+	border-radius: 20px;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.row > .card {
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+#open_help_center > a {
+	text-decoration: none;
+	color: #000;
+	background-color: #fff;
+	padding: 10px 25px;
+	border-radius: 20px;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+/** admin drop down menu **/
+
+#admin-dropdown-sidemenu #user-dropdown-menu{
+	width: 300px !important;
+}
+
+#admin-dropdown-sidemenu .dropdown-menu-right {
+	right: 30px;
+	top: -50px;
+}
+#admin-dropdown-sidemenu #user-dropdown-menu .dropdown-item:first-child {
+	margin-top: -8px;
+	height: 70px;
+	padding-top: 18px;
+}
+#admin-dropdown-sidemenu > #user-dropdown-menu > .dropdown-item:first-child:hover {
+	background-color: rgba(0,0,0,.05);
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+}
+
+#admin-dropdown-sidemenu > #user-dropdown-menu > .dropdown-item:hover {
+	background-color: rgba(0,0,0,.05);
+}
+#profile-username {
+	top: 16px;
+	left: 54px;
+	font-size: 13px;
+}
+#profile-email {
+	top: 36px;
+	left: 54px;
+	font-size: 12px;
+	color: rgba(0,0,0,.4);
+}
+#edit {
+	top: 22px;
+	right: 18px;
+	color: #007bff;
+	font-size: 12px;
+}
+.profile-header {
+	font-size: 12px;
+	color: rgba(0,0,0,.4);
+}
+
+#user-icon {
+	font-size: 20px;
+	color: #2182c4;
+	margin-right: 13px;
+	margin-top: 10px;
+}
+.fa-home {
+	color: #2182c4;
+	font-size: 17px;
+}
+
+.item > .fa-plus {
+	color: #70be4e;
+	font-size: 15px;
+}
+
+.fa-building {
+	color: #00a388;
+	font-size: 15px;
+}
+
+.fa-line-chart {
+	color: #e64731;
+	font-size: 15px;
+}
+
+.fa-users {
+	color: #ffb03b;
+	font-size: 15px;
+}
+
+.fa-arrow-circle-o-up {
+	color: #70be4e;
+	font-size: 17px;
+}
+.fa-question-circle-o, .fa-exclamation-circle, .fa-sign-out {
+	font-size: 15px;
+}
+.dropdown-item {
+	font-weight: lighter;
+	font-size: 14px;
+}
+.item {
+	padding-top:10px;
+	padding-bottom: 10px;
+}
+.divider {
+	margin-top: 0px;
+}

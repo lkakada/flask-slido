@@ -1,11 +1,14 @@
 {% extends 'main/index.html' %}
 {% from "includes/_formhelpers.html" import Field %}
 {% block title %}Slido - Audience Interaction Made Easy{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css') }}">
+{% endblock %}
 {% block navbar %}
 	{% include 'navbar/home-navbar.html' %}
 {% endblock %}
 {% block content %}
-<div class="container" id="main-navbar">
+<div class="container" id="main-page">
     <div class="row justify-content-md-center">
         <div class="col-sm col-lg-8">
             <h1 class="text-center">Every Question Matters.</h1>
@@ -13,14 +16,16 @@
             <div class="row d-flex justify-content-center">
                 <form method="POST" class="input-group" id="join-input">
                     {{ form.csrf_token }}
-                    {{ Field(form.event_code, placeholder='# Event code', type='text') }}
+                    {{ Field(form.event_code, placeholder='# Enter event code', type='text') }}
                     <div class="input-group-append">
                         <button class="btn btn-success shadow p-3 mb-5 bg-success" type="submit" id="join">Join</button>
                     </div>
                 </form>
-                <button class="btn btn-success shadow p-3 mb-5 bg-success" type="submit" id="sign-up"><a href="{{url_for('register')}}" style="text-decoration: none; color: #fff;">Sign up</a></button>
+                <button class="btn btn-success shadow p-3 mb-5 bg-success" type="submit" id="sign-up"><a href="{{url_for('register')}}">Sign up</a></button>
             </div>
         </div>
     </div>
 </div>
 {% endblock %}
+
+

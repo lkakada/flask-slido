@@ -1,0 +1,183 @@
+<div class="container" id="admin_question_panel">
+    <div class="row">
+	    <div class="col-sm-12 col-md-6 col-lg-6" id="moderate">
+	        <div class="d-flex">
+	        	<div class="mr-auto p-2 text-black-50">Incoming</div>
+				<div class="p-2 text-black-50">Moderate</div>
+	        </div>
+	        <div class="w-auto" id="moderate_question"></div>
+	    </div>
+    	<div class="col-sm-12 col-md-6 col-lg-6">
+    		<ul class="nav nav-pills" role="tablist" id="admin_question">
+			  	<li class="nav-item">
+			    	<a class="nav-link active" id="pills-live-tab" data-toggle="pill" href="#live" role="tab" aria-controls="pills-home" aria-selected="true">Live</a>
+			  	</li>
+			  	<li class="nav-item">
+			    	<a class="nav-link" id="pills-starred-tab" data-toggle="pill" href="#starred" role="tab" aria-controls="pills-profile" aria-selected="false">Starred</a>
+			  	</li>
+			  	<li class="nav-item">
+			    	<a class="nav-link" id="pills-achieved-tab" data-toggle="pill" href="#achieved" role="tab" aria-controls="pills-contact" aria-selected="false">Achieved</a>
+			  	</li>
+			</ul>
+			<div class="tab-content">
+			  	<div role="tabpanel" class="tab-pane fade active show" id="live">
+			  		<table class="table table-hover">
+					    <tbody>
+					    	{% for question in questions | sort(attribute='registered_on', reverse = True) %}
+					        <tr>
+						        <td class="position-relative">
+						            <h6 class="text-dark"><i class="fa fa-user-circle fa-2x"></i><small class="position-absolute anonymous"> {{question.username}}</small>
+											  </h6>
+						            <small class="position-absolute text-muted question-calandar">0 <i class="fa fa-thumbs-o-up"></i>&nbsp;&nbsp; {{question.registered_on.strftime('%d %b, %H:%M %p')}}
+												</small>
+						            <p class="card-text text-muted text-question">{{question.question}}</p>
+						            
+						            <form action="" method="POST" id="postcomment" class="position-relative">
+										<textarea cols="60" rows="3" name="whatever" maxlength="160" id="postquestion">whatever</textarea>
+										<div class="text-center float-right" id="yes"><a class="btn-ok" style="text-decoration:none;color: #fff;">CLOSE</a></div>
+										<div class="text-center float-right" id="yes"><a class="btn-ok" style="text-decoration:none;color: #fff;">SAVE</a></div>
+									</form>
+									
+						            <button class="bd-highlight btn btn-link text-muted position-absolute" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						                <i class="fa fa-ellipsis-v"></i>
+						            </button>
+						            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" id="question-dropdown-menu">
+						        		<a class="dropdown-item" href="" data-toggle="modal" data-target="#questionModal"><i class="fa fa-reply"></i>&nbsp;&nbsp; Apply as admin</a>
+						        		<a class="dropdown-item" id="question-edit"><i class="fa fa-pencil-square-o" id="{{question.id}}"></i>&nbsp;&nbsp; Edit</a>
+						        		<a class="dropdown-item" data-href="/app.sli.do/question/{{question.id}}"  data-toggle="modal" data-target="#question-delete"><i class="fa fa-trash-o"></i>&nbsp;&nbsp; Delete</a>
+						    		</div>
+						            <span class="icon fa fa-star-o fa-lg position-absolute"  data-toggle="tooltip" data-placement="bottom" title="Not starred"></span>
+						            <span class="icon fa fa-angle-double-up fa-lg position-absolute"  data-toggle="tooltip" data-placement="bottom" title="Highlight question"></span>
+						            <span class="icon fa fa-check-circle-o fa-lg position-absolute"  data-toggle="tooltip" data-placement="bottom" title="Achieve question"></span>
+						        </td>
+						    </tr>
+					    </tbody>
+					    {% endfor %}
+					</table>
+			  	</div>
+			  	<div role="tabpanel" class="tab-pane fade" id="starred">star</div>
+			  	<div role="tabpanel" class="tab-pane fade" id="achieved">achieved</div>  	
+			</div>
+        </div>      
+    </div>
+    {% include 'events/admin_question/question-modal.html' %}
+    <script type="text/javascript">
+    $(document).ready(function() {
+  		$(document).on('click', '#question-edit', function(event) {
+	    var id = $(this).find('i').attr('id');
+	    event.preventDefault();
+	    $.ajax({
+	      	url: "http://localhost:4000/admin.sli.do/question/"+id,
+	      	method: "GET",
+	      	data: {id:id},
+	      	dataType: "json",
+	      	success:function(data) {
+	        for (var i = 0; i < data.length; i++) {
+	          	$('#postquestion').val(data[i].question)
+	          	$('#postcomment').css('display', 'block');
+	        	}
+	      	}
+	   	 	});
+	  	});
+
+	  	$(document).on('click', '#yes', function(event){
+	  		$('#postcomment').css('display', 'none')
+	  	});
+	});
+    </script>
+</div>
+
+
+
+
+<div class="container" id="admin_question_panel">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6" id="moderate">
+            <div class="d-flex">
+                <div class="mr-auto p-2 text-black-50">Incoming</div>
+                <div class="p-2 text-black-50">Moderate</div>
+            </div>
+            <div class="w-auto" id="moderate_question"></div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6">
+            <ul class="nav nav-pills" role="tablist" id="admin_question">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-live-tab" data-toggle="pill" href="#live" role="tab" aria-controls="pills-home" aria-selected="true">Live</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-starred-tab" data-toggle="pill" href="#starred" role="tab" aria-controls="pills-profile" aria-selected="false">Starred</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-achieved-tab" data-toggle="pill" href="#achieved" role="tab" aria-controls="pills-contact" aria-selected="false">Achieved</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active show" id="live">
+                    <table class="table table-hover">
+                        <tbody>
+                            {% for question in questions | sort(attribute='registered_on', reverse = True) %}
+                            <tr>
+                                <td class="position-relative">
+                                    <h6 class="text-dark"><i class="fa fa-user-circle fa-2x"></i><small class="position-absolute anonymous"> {{question.username}}</small>
+                                              </h6>
+                                    <small class="position-absolute text-muted question-calandar">0 <i class="fa fa-thumbs-o-up"></i>&nbsp;&nbsp; {{question.registered_on.strftime('%d %b, %H:%M %p')}}
+                                                </small>
+                                    <p class="card-text text-muted text-question" data-auction="{{question.id}}" id="{{question.id}}" style="border: none; resize: none;">{{question.question}}</p>
+                                    <form method="POST" action="" style="margin-top: 10px;" id="postcomment">
+                                        {{ form.csrf_token }}
+                                        <div class="form-group position-relative">
+                                            {{ input(questionform.question, label_visible=true, type='text',  id="question-editing", autocomplete="off", class="date-to") }}
+                                            <div class="create-btn">
+                                                <button class="text-center" data-dismiss="modal" id="btn-close">Close</button>
+                                                <button type="submit" class="text-center" id="btn-create">Update</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <button class="bd-highlight btn btn-link text-muted position-absolute" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-v"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" id="question-dropdown-menu">
+                                        <a class="dropdown-item" href="" data-toggle="modal" data-target="#questionModal"><i class="fa fa-reply"></i>&nbsp;&nbsp; Apply as admin</a>
+                                        <a class="dropdown-item" id="question-modal"><i class="fa fa-pencil-square-o" id="{{question.id}}"></i>&nbsp;&nbsp; Edit</a>
+                                        <a class="dropdown-item" data-href="/app.sli.do/question/{{question.id}}"  data-toggle="modal" data-target="#question-delete"><i class="fa fa-trash-o"></i>&nbsp;&nbsp; Delete</a>
+                                    </div>
+                                    <span class="icon fa fa-star-o fa-lg position-absolute"  data-toggle="tooltip" data-placement="bottom" title="Not starred"></span>
+                                    <span class="icon fa fa-angle-double-up fa-lg position-absolute"  data-toggle="tooltip" data-placement="bottom" title="Highlight question"></span>
+                                    <span class="icon fa fa-check-circle-o fa-lg position-absolute"  data-toggle="tooltip" data-placement="bottom" title="Achieve question"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="starred">star</div>
+                <div role="tabpanel" class="tab-pane fade" id="achieved">achieved</div>     
+            </div>
+        </div>      
+    </div>
+    {% include 'events/admin_question/question-modal.html' %}
+    <script type="text/javascript">
+   
+    $(document).ready(function() {
+        $(document).on('click', '#question-modal', function() {
+            var id = $(this).find('i').attr('id');
+            console.log(id)
+            $.ajax({
+                url: "http://localhost:4000/admin.sli.do/question/"+id,
+                data: {id: id},
+                method: "GET",
+                dataType: "json",
+                success:function(data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $('#question-editing').val(data[i].question)
+                        console.log((data[i].question))
+                        $("#postcomment").css('display', 'block')
+                    }
+                }
+            });
+        });
+    });
+    </script>
+</div>
+
+

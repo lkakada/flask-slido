@@ -1,0 +1,51 @@
+/** Log in and register page **/
+#login_page {
+	margin-top: 100px;
+}
+#signup_page{
+	margin-top: 30px;
+}
+#login, #register {
+	width: 380px;
+    margin: auto;
+    padding: 15px 10px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.form-control {
+	border-color: #28a745 !important;
+	line-height: 1.8rem !important;
+}
+
+hr {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background-color: green;
+	width: 200px;
+}
+
+/** Navbar Question **/
+#question_search {
+	height: 50px;
+}
+#question_search .nav-item .nav-link {
+	padding-top: 20px;
+	color: #7f7f7f;
+}
+#question_search .nav-item .nav-link:hover {
+	color: #000;
+}
+
+#question_search #header {
+	text-decoration: none;
+	color: #000;
+	font-size: 24px;
+	margin-top: -12px;
+	font-weight: bold;
+}
+
+#header span {
+	color: green;
+	font-size: 30px;
+}
