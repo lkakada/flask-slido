@@ -13,7 +13,7 @@ $(document).ready(function(){
 
 $(document).ready(function() {
   setTimeout(function() {
-    $("#message").fadeOut('fast');
+    $("#message").slideUp('slow');
   }, 5000);
 });
 

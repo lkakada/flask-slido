@@ -1,5 +1,6 @@
 {% extends 'main/index.html' %}
 {% from "includes/_formhelpers.html" import input %}
+{% from "includes/_formhelpers.html" import anotherField %}
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/event.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/admin_home.css') }}">
@@ -12,7 +13,7 @@
     <a class="fa fa-chevron-left" href="{{ url_for('event_dashboard') }}"></a>
     <li class="col nav-item" id="back_button">
         <a class="nav-link" id="admin_event_id">{{get_event_name}} <i class="fa fa-cog text-light" style="margin-left: 5px;"></i></a>
-        <span class="nav-link" id="admin_event_status">{{get_date_to.strftime('%d')}} - {{get_date_from.strftime('%d %b %Y')}}</span>
+        <span class="nav-link" id="admin_event_status">{{get_date_from.strftime('%d')}} - {{get_date_to.strftime('%d %b %Y')}}</span>
     </li>
     <li class="col nav-item text-center">
         <span class="nav-link" id="admin_event_id">#{{get_event_id.upper()}} <i class="fa fa-cog text-light" style="margin-left: 5px;"></i></span>

@@ -43,22 +43,30 @@
         {% endif %}
     </span>
 </div>
+<div class="container" style="width: 580px;">
+<table class="table" id="question-table">
+    <tbody>
+        {% for question in questions | sort(attribute='registered_on', reverse = True) %}   
+        <tr>
+            <td class="position-relative">
+                <h6><i class="fa fa-user-circle fa-2x"></i><small class="position-absolute anonymous"> {{question.username}}</small></h6>
+                <small class="position-absolute text-muted question-calandar">{{question.registered_on.strftime('%b %d, %Y')}}
+                            </small>
+                <p class="card-text text-muted text-question" data-auction="{{question.id}}" id="{{question.id}}" style="border: none; resize: none;">{{question.question}}</p>
+                {% if question.like == False %}
+                <button class="btn text-muted position-absolute" id="question-icon"><span style="text-decoration: none;">0&nbsp;</span>
+                    <a href="{{url_for('question_like', id = question.id)}}"><span class="fa fa-thumbs-o-up text-muted"></span></a>
+                </button>
+                {% elif question.like == True %}
+                 <button class="btn text-muted position-absolute" id="question-icon"><span style="text-decoration: none;">1&nbsp;</span>
+                    <a href="{{url_for('question_unlike', id = question.id)}}"><span class="fa fa-thumbs-up"></span></a>
+                </button>
+                {% endif %}
 
-<div class="container" id="card">
-    <div class="row justify-content-md-center">
-        <div class="col-sm col-md-8 col-lg-6">  
-        {% for question in questions | sort(attribute='registered_on', reverse = True) %}  
-            <div class="card shadow bg-white">
-                <div class="card-body text-secondary">
-                    <i class="fa fa-user-circle fa-2x"></i>
-                    <p class="card-text1">{{question.username}}</p>
-                    <p class="card-text2">{{question.registered_on.strftime('%r')}}</p>
-                    <p class="card-text">{{question.question}}</p>  
-                </div>
-            </div>
-        {% endfor %}
-        </div>
-    </div>
+            </td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
 </div>
-
 {% endblock %}

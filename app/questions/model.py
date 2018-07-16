@@ -10,7 +10,10 @@ class Question(db.Model):
     starred         = db.Column('starred', db.Boolean, default=False)
     completed       = db.Column('completed', db.Boolean, default=False)
     isHighlighted   = db.Column('isHighlighted', db.Boolean, default=False)
+    like            = db.Column('like', db.Boolean, default = False)
+    moderate        = db.Column('moderate', db.Boolean, default = False)
     registered_on   = db.Column('registered_on' , db.DateTime)
+
 
 
     def __init__(self, question, event_id, username=''):
@@ -20,5 +23,7 @@ class Question(db.Model):
         self.starred        = False
         self.completed      = False
         self.isHighlighted  = False
+        self.like           = False
+        self.moderate       = False
         if username != '':
         	self.username   = username

@@ -22,3 +22,10 @@ html, body{
   	font-family: 'Raleway', sans-serif;
   	background: #F5F5F5;
 }
+
+#message {
+	position: absolute;
+	bottom: 0px;
+	z-index: 1;
+	left: 10px;
+}

@@ -72,10 +72,6 @@ def admin_event_dashboard(event_id):
 	first_name = session['first_name']
 	last_name = session['last_name']
 	session['event_id'] = event_id
-	unstarredquestion = []
-	starredquestion = []
-	completed = []
-	incompleted = []
 	get_event_name = Event.query.filter_by(event_id=event_id).first()
 	get_events = Event.query.filter_by(event_id=event_id).all()
 	get_questions_by_event_id = Question.query.filter_by(event_id=get_event_id).all()

@@ -5,7 +5,88 @@
                 <div class="mr-auto p-2 text-black-50">Incoming</div>
                 <div class="p-2 text-black-50">Moderate</div>
             </div>
-            <div class="w-auto" id="moderate_question"></div>
+            <div class="w-auto" id="moderate_question">
+                <table class="table table-hover">
+                    <tbody>
+                        {% for question in questions | sort(attribute='registered_on', reverse = True) %}
+                            {% if question.moderate == False %}
+                                <tr>
+                                    <td class="position-relative">
+                                        <h6 class="text-dark"><i class="fa fa-user-circle fa-2x"></i><small class="position-absolute anonymous"> {{question.username}}</small>
+                                        </h6>
+                                        <small class="position-absolute text-muted question-calandar">
+                                            {% if question.like == False %}
+                                            0 <i class="fa fa-thumbs-o-up"></i>
+                                            {% elif question.like == True %}
+                                            1 <i class="fa fa-thumbs-up" style="color: #007bff"></i>
+                                            {% endif %}
+                                            &nbsp;&nbsp; 
+                                            {{question.registered_on.strftime('%d %b, %H:%M %p')}}
+                                        </small>
+                                        <div class="collapse" id="moderate{{question.id}}">
+                                            <form method="POST" action="{{ url_for('question_update', event_id=session['event_id']) }}">
+                                                {{ form.csrf_token }}
+                                                <div>
+                                                    {{ anotherField(questionform.question, type='text', id="editing")}}
+                                                </div>
+                                                <button class="btn btn-primary" id="save-btn">Save</button>
+                                            </form>
+                                            <button class="btn btn-danger close-collapse" id="moderate_close"><i class="fa fa-times" id="{{question.id}}"></i></button>
+                                        </div>
+                                        <p class="card-text text-muted text-question" id="moderate_question{{question.id}}" style="border: none; resize: none;">{{question.question}}</p>
+                                        <button class="bd-highlight btn btn-link text-muted position-absolute" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" id="question-dropdown-menu">
+                                            <a class="dropdown-item" id="question-reply-modal" data-toggle="modal" data-target="#questionReplyModal" href="" ><i class="fa fa-reply" id="{{question.id}}"></i>&nbsp;&nbsp; Apply as admin</a>
+                                            <a class="dropdown-item" id="moderate_editing"><i class="fa fa-pencil-square-o" id="{{question.id}}"></i>&nbsp;&nbsp; Edit</a>
+                                            <a class="dropdown-item" data-href="/app.sli.do/question/{{question.id}}"  data-toggle="modal" data-target="#question-delete"><i class="fa fa-trash-o"></i>&nbsp;&nbsp; Delete</a>
+                                        </div>
+                                            <a class="icon fa fa-share position-absolute" data-toggle="tooltip" data-placement="bottom" title="Ready to move to live" id="{{question.id}}" href="{{url_for('getModerateQuestion', id=question.id)}}"></a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if question.moderate == True %}
+                                <tr>
+                                    <td class="position-relative">
+                                        <h6 class="text-dark"><i class="fa fa-user-circle fa-2x"></i><small class="position-absolute anonymous"> {{question.username}}</small>
+                                        </h6>
+                                        <small class="position-absolute text-muted question-calandar">
+                                            {% if question.like == False %}
+                                            0 <i class="fa fa-thumbs-o-up"></i>
+                                            {% elif question.like == True %}
+                                            1 <i class="fa fa-thumbs-up" style="color: #007bff"></i>
+                                            {% endif %}
+                                            &nbsp;&nbsp; 
+                                            {{question.registered_on.strftime('%d %b, %H:%M %p')}}
+                                        </small>
+                                        <div class="collapse" id="moderate{{question.id}}">
+                                            <form method="POST" action="{{ url_for('question_update', event_id=session['event_id']) }}">
+                                                {{ form.csrf_token }}
+                                                <div>
+                                                    {{ anotherField(questionform.question, type='text', id="editing")}}
+                                                </div>
+                                                <button class="btn btn-primary" id="save-btn">Save</button>
+                                            </form>
+                                            <button class="btn btn-danger close-collapse" id="moderate_close"><i class="fa fa-times" id="{{question.id}}"></i></button>
+                                        </div>
+                                        <p class="card-text text-muted text-question" id="moderate_question{{question.id}}" style="border: none; resize: none;">{{question.question}}</p>
+                                        <button class="bd-highlight btn btn-link text-muted position-absolute" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" id="question-dropdown-menu">
+                                            <a class="dropdown-item" id="question-reply-modal" data-toggle="modal" data-target="#questionReplyModal" href="" ><i class="fa fa-reply" id="{{question.id}}"></i>&nbsp;&nbsp; Apply as admin</a>
+                                            <a class="dropdown-item" id="moderate_editing"><i class="fa fa-pencil-square-o" id="{{question.id}}"></i>&nbsp;&nbsp; Edit</a>
+                                            <a class="dropdown-item" data-href="/app.sli.do/question/{{question.id}}"  data-toggle="modal" data-target="#question-delete"><i class="fa fa-trash-o"></i>&nbsp;&nbsp; Delete</a>
+                                        </div>
+                                            <a class="icon fa fa-undo position-absolute" data-toggle="tooltip" data-placement="bottom" title="Undo" id="{{question.id}}" href="{{url_for('getUnModerateQuestion', id=question.id)}}"></a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    {% endfor %}
+                </table>
+            </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6">
             <ul class="nav nav-pills" role="tablist" id="admin_question">
@@ -25,19 +106,37 @@
                         <tbody>
                             {% for question in questions | sort(attribute='registered_on', reverse = True) %}
                                 {% if question.completed == False %}
+                                    {% if question.moderate == True %}
                                     <tr>
                                         <td class="position-relative">
                                             <h6 class="text-dark"><i class="fa fa-user-circle fa-2x"></i><small class="position-absolute anonymous"> {{question.username}}</small>
-                                                      </h6>
-                                            <small class="position-absolute text-muted question-calandar">0 <i class="fa fa-thumbs-o-up"></i>&nbsp;&nbsp; {{question.registered_on.strftime('%d %b, %H:%M %p')}}
-                                                        </small>
-                                            <p class="card-text text-muted text-question" data-auction="{{question.id}}" id="{{question.id}}" style="border: none; resize: none;">{{question.question}}</p>
+                                            </h6>
+                                            <small class="position-absolute text-muted question-calandar">
+                                                {% if question.like == False %}
+                                                0 <i class="fa fa-thumbs-o-up"></i>
+                                                {% elif question.like == True %}
+                                                1 <i class="fa fa-thumbs-up" style="color: #007bff"></i>
+                                                {% endif %}
+                                                &nbsp;&nbsp; 
+                                                {{question.registered_on.strftime('%d %b, %H:%M %p')}}
+                                            </small>
+                                            <div class="collapse" id="live{{question.id}}">
+                                                <form method="POST" action="{{ url_for('question_update', event_id=session['event_id']) }}">
+                                                    {{ form.csrf_token }}
+                                                    <div>
+                                                        {{ anotherField(questionform.question, type='text', id="editing")}}
+                                                    </div>
+                                                    <button class="btn btn-primary" id="save-btn">Save</button>
+                                                </form>
+                                                <button class="btn btn-danger close-collapse" id="live_close"><i class="fa fa-times" id="{{question.id}}"></i></button>
+                                            </div>
+                                            <p class="card-text text-muted text-question" id="live_question{{question.id}}" style="border: none; resize: none;">{{question.question}}</p>
                                             <button class="bd-highlight btn btn-link text-muted position-absolute" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fa fa-ellipsis-v"></i>
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" id="question-dropdown-menu">
-                                                <a class="dropdown-item" href="" data-toggle="modal" data-target="#questionModal"><i class="fa fa-reply"></i>&nbsp;&nbsp; Apply as admin</a>
-                                                <a class="dropdown-item" id="question-modal"><i class="fa fa-pencil-square-o" id="{{question.id}}"></i>&nbsp;&nbsp; Edit</a>
+                                                <a class="dropdown-item" id="question-reply-modal" data-toggle="modal" data-target="#questionReplyModal" href="" ><i class="fa fa-reply" id="{{question.id}}"></i>&nbsp;&nbsp; Apply as admin</a>
+                                                <a class="dropdown-item" id="live_editing"><i class="fa fa-pencil-square-o" id="{{question.id}}"></i>&nbsp;&nbsp; Edit</a>
                                                 <a class="dropdown-item" data-href="/app.sli.do/question/{{question.id}}"  data-toggle="modal" data-target="#question-delete"><i class="fa fa-trash-o"></i>&nbsp;&nbsp; Delete</a>
                                             </div>
                                             {% if question.starred == True %}
@@ -50,6 +149,7 @@
                                             <a class="icon fa fa-check-circle-o fa-lg position-absolute"  data-toggle="tooltip" data-placement="bottom" title="Achieve question" href="{{url_for('getCompletedQuestion', id=question.id)}}"></a>
                                         </td>
                                     </tr>
+                                    {% endif %}
                                 {% endif %}
                         </tbody>
                         {% endfor %}
@@ -60,19 +160,37 @@
                         <tbody>
                             {% for question in questions | sort(attribute='registered_on', reverse = True) %}
                                 {% if question.starred == True %}
+                                    {% if question.moderate == True %}
                                     <tr>
                                         <td class="position-relative">
                                             <h6 class="text-dark"><i class="fa fa-user-circle fa-2x"></i><small class="position-absolute anonymous"> {{question.username}}</small>
-                                                      </h6>
-                                            <small class="position-absolute text-muted question-calandar">0 <i class="fa fa-thumbs-o-up"></i>&nbsp;&nbsp; {{question.registered_on.strftime('%d %b, %H:%M %p')}}
-                                                        </small>
-                                            <p class="card-text text-muted text-question" data-auction="{{question.id}}" id="{{question.id}}" style="border: none; resize: none;">{{question.question}}</p>
+                                            </h6>
+                                            <small class="position-absolute text-muted question-calandar">
+                                                {% if question.like == False %}
+                                                0 <i class="fa fa-thumbs-o-up"></i>
+                                                {% elif question.like == True %}
+                                                1 <i class="fa fa-thumbs-up" style="color: #007bff"></i>
+                                                {% endif %}
+                                                &nbsp;&nbsp; 
+                                                {{question.registered_on.strftime('%d %b, %H:%M %p')}}
+                                            </small>
+                                            <div class="collapse" id="starred{{question.id}}">
+                                                <form method="POST" action="{{ url_for('question_update', event_id=session['event_id']) }}">
+                                                    {{ form.csrf_token }}
+                                                    <div>
+                                                        {{ anotherField(questionform.question, type='text', id="editing")}}
+                                                    </div>
+                                                    <button class="btn btn-primary" id="save-btn">Save</button>
+                                                </form>
+                                                <button class="btn btn-danger close-collapse" id="starred_close"><i class="fa fa-times" id="{{question.id}}"></i></button>
+                                            </div>
+                                            <p class="card-text text-muted text-question" id="starred_question{{question.id}}" style="border: none; resize: none;">{{question.question}}</p>
                                             <button class="bd-highlight btn btn-link text-muted position-absolute" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fa fa-ellipsis-v"></i>
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" id="question-dropdown-menu">
                                                 <a class="dropdown-item" href="" data-toggle="modal" data-target="#questionModal"><i class="fa fa-reply"></i>&nbsp;&nbsp; Apply as admin</a>
-                                                <a class="dropdown-item" id="question-modal"><i class="fa fa-pencil-square-o" id="{{question.id}}"></i>&nbsp;&nbsp; Edit</a>
+                                                <a class="dropdown-item" id="starred_editing"><i class="fa fa-pencil-square-o" id="{{question.id}}"></i>&nbsp;&nbsp; Edit</a>
                                                 <a class="dropdown-item" data-href="/app.sli.do/question/{{question.id}}"  data-toggle="modal" data-target="#question-delete"><i class="fa fa-trash-o"></i>&nbsp;&nbsp; Delete</a>
                                             </div>
                                             {% if question.starred == True %}
@@ -82,6 +200,7 @@
                                             <a class="icon fa fa-check-circle-o fa-lg position-absolute"  data-toggle="tooltip" data-placement="bottom" title="Achieve question" href="{{url_for('getCompletedQuestion', id=question.id)}}"></a>
                                         </td>
                                     </tr>
+                                    {% endif %}
                                 {% endif %}
                             </tbody>
                             {% else %}
@@ -94,19 +213,37 @@
                         <tbody>
                             {% for question in questions | sort(attribute='registered_on', reverse = True) %}
                                 {% if question.completed == True %}
+                                    {% if question.moderate == True %}
                                     <tr>
                                         <td class="position-relative">
                                             <h6 class="text-dark"><i class="fa fa-user-circle fa-2x"></i><small class="position-absolute anonymous"> {{question.username}}</small>
-                                                      </h6>
-                                            <small class="position-absolute text-muted question-calandar">0 <i class="fa fa-thumbs-o-up"></i>&nbsp;&nbsp; {{question.registered_on.strftime('%d %b, %H:%M %p')}}
-                                                        </small>
-                                            <p class="card-text text-muted text-question" data-auction="{{question.id}}" id="{{question.id}}" style="border: none; resize: none;">{{question.question}}</p>
+                                            </h6>
+                                            <small class="position-absolute text-muted question-calandar">
+                                                {% if question.like == False %}
+                                                0 <i class="fa fa-thumbs-o-up"></i>
+                                                {% elif question.like == True %}
+                                                1 <i class="fa fa-thumbs-up" style="color: #007bff"></i>
+                                                {% endif %}
+                                                &nbsp;&nbsp; 
+                                                {{question.registered_on.strftime('%d %b, %H:%M %p')}}
+                                            </small>
+                                            <div class="collapse" id="achieved{{question.id}}">
+                                                <form method="POST" action="{{ url_for('question_update', event_id=session['event_id']) }}">
+                                                    {{ form.csrf_token }}
+                                                    <div>
+                                                        {{ anotherField(questionform.question, type='text', id="editing")}}
+                                                    </div>
+                                                    <button class="btn btn-primary" id="save-btn">Save</button>
+                                                </form>
+                                                <button class="btn btn-danger close-collapse" id="achieved_close"><i class="fa fa-times" id="{{question.id}}"></i></button>
+                                            </div>
+                                            <p class="card-text text-muted text-question" id="achieved_question{{question.id}}" style="border: none; resize: none;">{{question.question}}</p>
                                             <button class="bd-highlight btn btn-link text-muted position-absolute" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fa fa-ellipsis-v"></i>
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" id="question-dropdown-menu">
                                                 <a class="dropdown-item" href="" data-toggle="modal" data-target="#questionModal"><i class="fa fa-reply"></i>&nbsp;&nbsp; Apply as admin</a>
-                                                <a class="dropdown-item" id="question-modal"><i class="fa fa-pencil-square-o" id="{{question.id}}"></i>&nbsp;&nbsp; Edit</a>
+                                                <a class="dropdown-item" id="achieved_editing"><i class="fa fa-pencil-square-o" id="{{question.id}}"></i>&nbsp;&nbsp; Edit</a>
                                                 <a class="dropdown-item" data-href="/app.sli.do/question/{{question.id}}"  data-toggle="modal" data-target="#question-delete"><i class="fa fa-trash-o"></i>&nbsp;&nbsp; Delete</a>
                                             </div>
                                             {% if question.completed == True %}
@@ -119,6 +256,7 @@
                                             {% endif %}
                                         </td>
                                     </tr>
+                                    {% endif %}
                                 {% endif %}
                             </tbody>
                         {% endfor %}
@@ -127,7 +265,8 @@
             </div>
         </div>      
     </div>
-    {% include 'events/admin_question/question-modal.html' %}
+    <!-- {% include 'events/admin_question/question-modal.html' %} -->
+    {% include 'events/admin_question/question-reply-modal.html' %}
     <script type="text/javascript">
     $(document).ready(function() {
         $(document).on('click', '#question-modal', function() {
@@ -139,13 +278,143 @@
                 dataType: "json",
                 success:function(data) {
                     for (var i = 0; i < data.length; i++) {
-                        $('#question-editing').val(data[i].question)
-                        $('#questionModal').modal('show')
+                        $('#question-editing').val(data[i].question);
+                    }
+                }
+            });
+        });
+        $(document).on('click', '#moderate_editing', function() {
+            var id = $(this).find('i').attr('id');
+            $.ajax({
+                url: "http://localhost:4000/admin.sli.do/question/"+id,
+                data: {id: id},
+                method: "GET",
+                dataType: "json",
+                success:function(data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $('#' + data[i].id + ',#editing').val(data[i].question);
+                        $('#moderate'+data[i].id).collapse("show");
+                        $('#moderate_question'+data[i].id).addClass('collapse');
+                    }
+                }
+            });
+        });
+
+        $(document).on('click', '#live_editing', function() {
+            var id = $(this).find('i').attr('id');
+            $.ajax({
+                url: "http://localhost:4000/admin.sli.do/question/"+id,
+                data: {id: id},
+                method: "GET",
+                dataType: "json",
+                success:function(data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $('#' + data[i].id + ',#editing').val(data[i].question);
+                        $('#live'+data[i].id).collapse("show");
+                        $('#live_question'+data[i].id).addClass('collapse');
+                    }
+                }
+            });
+        });
+        $(document).on('click', '#starred_editing', function() {
+            var id = $(this).find('i').attr('id');
+            var question_status = $('div').find('.collapse').attr('id');
+            $.ajax({
+                url: "http://localhost:4000/admin.sli.do/question/"+id,
+                data: {id: id},
+                method: "GET",
+                dataType: "json",
+                success:function(data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $('#' + data[i].id + ',#editing').val(data[i].question);
+                        $('#starred'+data[i].id).collapse("show");
+                        $('#starred_question'+data[i].id).addClass('collapse');
+                    }
+                }
+            });
+        });
+        $(document).on('click', '#achieved_editing', function() {
+            var id = $(this).find('i').attr('id');
+            var question_status = $('div').find('.collapse').attr('id');
+            $.ajax({
+                url: "http://localhost:4000/admin.sli.do/question/"+id,
+                data: {id: id},
+                method: "GET",
+                dataType: "json",
+                success:function(data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $('#' + data[i].id + ',#editing').val(data[i].question);
+                        $('#achieved'+data[i].id).collapse("show");
+                        $('#achieved_question'+data[i].id).addClass('collapse');
+                    }
+                }
+            });
+        });
+
+        $(document).on('click', '#moderate_close', function() {
+            var id = $(this).find('i').attr('id');
+            $.ajax({
+                url: "http://localhost:4000/admin.sli.do/question/"+id,
+                data: {id: id},
+                method: "GET",
+                dataType: "json",
+                success:function(data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $('#moderate' + data[i].id).collapse("hide");
+                        $('#moderate_question'+data[i].id).removeClass('collapse');
+                    }
+                }
+            });
+        });
+
+         $(document).on('click', '#live_close', function() {
+            var id = $(this).find('i').attr('id');
+            $.ajax({
+                url: "http://localhost:4000/admin.sli.do/question/"+id,
+                data: {id: id},
+                method: "GET",
+                dataType: "json",
+                success:function(data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $('#live' + data[i].id).collapse("hide");
+                        $('#live_question'+data[i].id).removeClass('collapse');
+                    }
+                }
+            });
+        });
+
+          $(document).on('click', '#starred_close', function() {
+            var id = $(this).find('i').attr('id');
+            $.ajax({
+                url: "http://localhost:4000/admin.sli.do/question/"+id,
+                data: {id: id},
+                method: "GET",
+                dataType: "json",
+                success:function(data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $('#starred' + data[i].id).collapse("hide");
+                        $('#starred_question'+data[i].id).removeClass('collapse');
+                    }
+                }
+            });
+        });
+           $(document).on('click', '#achieved_close', function() {
+            var id = $(this).find('i').attr('id');
+            $.ajax({
+                url: "http://localhost:4000/admin.sli.do/question/"+id,
+                data: {id: id},
+                method: "GET",
+                dataType: "json",
+                success:function(data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $('#achieved' + data[i].id).collapse("hide");
+                        $('#achieved_question'+data[i].id).removeClass('collapse');
                     }
                 }
             });
         });
     });
+
     </script>
 </div>
 
